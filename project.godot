@@ -19,6 +19,10 @@ config/icon="res://icon.svg"
 
 KeyUtils="*uid://daymmk077fdgo"
 
+[debug]
+
+gdscript/warnings/unused_signal=0
+
 [display]
 
 window/size/viewport_width=280
