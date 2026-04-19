@@ -26,4 +26,15 @@ texture = ExtResource("3_71j4m")
 centered = false
 
 [node name="Player" parent="." unique_id=208038396 instance=ExtResource("4_k0juu")]
-position = Vector2(159, 135)
+position = Vector2(117, 93)
+speed = 80.0
+
+[node name="Player2" parent="." unique_id=923899669 instance=ExtResource("4_k0juu")]
+position = Vector2(120, 143)
+control_scheme = 1
+speed = 80.0
+
+[node name="Player3" parent="." unique_id=2015607218 instance=ExtResource("4_k0juu")]
+position = Vector2(195, 110)
+control_scheme = 2
+speed = 80.0
