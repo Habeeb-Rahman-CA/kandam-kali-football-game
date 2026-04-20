@@ -29,19 +29,19 @@ centered = false
 [node name="ActionsContainer" type="Node2D" parent="." unique_id=1078086778]
 y_sort_enabled = true
 
-[node name="Player" parent="ActionsContainer" unique_id=208038396 instance=ExtResource("4_k0juu")]
+[node name="Player" parent="ActionsContainer" unique_id=208038396 node_paths=PackedStringArray("ball") instance=ExtResource("4_k0juu")]
 position = Vector2(117, 93)
-speed = 80.0
+ball = NodePath("../Ball")
 
-[node name="Player2" parent="ActionsContainer" unique_id=923899669 instance=ExtResource("4_k0juu")]
+[node name="Player2" parent="ActionsContainer" unique_id=923899669 node_paths=PackedStringArray("ball") instance=ExtResource("4_k0juu")]
 position = Vector2(120, 143)
+ball = NodePath("../Ball")
 control_scheme = 1
-speed = 80.0
 
-[node name="Player3" parent="ActionsContainer" unique_id=2015607218 instance=ExtResource("4_k0juu")]
+[node name="Player3" parent="ActionsContainer" unique_id=2015607218 node_paths=PackedStringArray("ball") instance=ExtResource("4_k0juu")]
 position = Vector2(195, 110)
+ball = NodePath("../Ball")
 control_scheme = 2
-speed = 80.0
 
 [node name="Ball" parent="ActionsContainer" unique_id=2015266569 instance=ExtResource("5_71j4m")]
 position = Vector2(241, 116)
