@@ -4,6 +4,7 @@
 [ext_resource type="Texture2D" uid="uid://bq5ujwg0ldds5" path="res://assets/art/backgrounds/pitch-pattern.png" id="2_k0juu"]
 [ext_resource type="Texture2D" uid="uid://cygdvrtwyfrwb" path="res://assets/art/backgrounds/pitch-lines.png" id="3_71j4m"]
 [ext_resource type="PackedScene" uid="uid://dpjguen4udmm3" path="res://scenes/characters/player.tscn" id="4_k0juu"]
+[ext_resource type="PackedScene" uid="uid://bkexuktukn3lj" path="res://scenes/ball/ball.tscn" id="5_71j4m"]
 
 [node name="World" type="Node2D" unique_id=319569151]
 
@@ -25,16 +26,22 @@ modulate = Color(0.9411765, 0.9411765, 0.9411765, 1)
 texture = ExtResource("3_71j4m")
 centered = false
 
-[node name="Player" parent="." unique_id=208038396 instance=ExtResource("4_k0juu")]
+[node name="ActionsContainer" type="Node2D" parent="." unique_id=1078086778]
+y_sort_enabled = true
+
+[node name="Player" parent="ActionsContainer" unique_id=208038396 instance=ExtResource("4_k0juu")]
 position = Vector2(117, 93)
 speed = 80.0
 
-[node name="Player2" parent="." unique_id=923899669 instance=ExtResource("4_k0juu")]
+[node name="Player2" parent="ActionsContainer" unique_id=923899669 instance=ExtResource("4_k0juu")]
 position = Vector2(120, 143)
 control_scheme = 1
 speed = 80.0
 
-[node name="Player3" parent="." unique_id=2015607218 instance=ExtResource("4_k0juu")]
+[node name="Player3" parent="ActionsContainer" unique_id=2015607218 instance=ExtResource("4_k0juu")]
 position = Vector2(195, 110)
 control_scheme = 2
 speed = 80.0
+
+[node name="Ball" parent="ActionsContainer" unique_id=2015266569 instance=ExtResource("5_71j4m")]
+position = Vector2(241, 116)
