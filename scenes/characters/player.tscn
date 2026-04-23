@@ -159,7 +159,7 @@ height = 18.0
 [node name="Player" type="CharacterBody2D" unique_id=208038396]
 collision_layer = 2
 script = ExtResource("1_yewv4")
-power = 70.0
+power = 150.0
 speed = 80.0
 
 [node name="PlayerSprite" type="Sprite2D" parent="." unique_id=859297964]
