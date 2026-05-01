@@ -11,6 +11,8 @@ const CONTROL_SCHEME_MAP : Dictionary = {
 const GRAVITY := 8.0
 
 enum ControlScheme {CPU, P1, P2}
+enum Role {GOALIE, DEFENCE, MIDFIELD, OFFENCE}
+enum SkinColor {LIGHT, MEDIUM, DARK}
 enum State {MOVING, TACKLING, RECOVERING, PREPPING_SHOT, SHOOTING, PASSING, HEADER, VOLLEY_KICK, BICYCLE_KICK, CHEST_CONTROL}
 
 @export var ball : Ball
@@ -27,6 +29,9 @@ enum State {MOVING, TACKLING, RECOVERING, PREPPING_SHOT, SHOOTING, PASSING, HEAD
 @onready var teammate_detection_area : Area2D = %TeammateDetectionArea
 
 var current_state : PlayerState = null
+var fullname := ""
+var role := Player.Role.MIDFIELD
+var skin_color := Player.SkinColor.MEDIUM
 var heading := Vector2.RIGHT
 var height := 0.0
 var height_velocity := 0.0
@@ -41,7 +46,19 @@ func _process(delta : float) -> void:
 	set_sprite_visibility()
 	process_gravity(delta)
 	move_and_slide()
-	
+
+func initialize(context_position: Vector2, context_ball: Ball, context_own_goal: Goal, context_target_goal: Goal, context_player_data: PlayerResource) -> void:
+	position = context_position
+	ball = context_ball
+	own_goal = context_own_goal
+	target_goal = context_target_goal
+	speed = context_player_data.speed
+	power = context_player_data.power
+	role = context_player_data.role
+	skin_color = context_player_data.skin_color
+	fullname = context_player_data.full_name
+	heading = Vector2.LEFT if target_goal.position.x < position.x else Vector2.RIGHT
+
 func switch_state(state: State, state_data: PlayerStateData = PlayerStateData.new()) -> void:
 	if current_state != null:
 		current_state.queue_free()

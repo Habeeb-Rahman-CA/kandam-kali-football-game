@@ -7,7 +7,7 @@ const SMOOTHING_BALL_DEFAULT := 8
 
 @export var ball : Ball
 
-func _process(delta: float) -> void:
+func _process(_delta: float) -> void:
 	if ball.carrier != null:
 		position = ball.carrier.position + ball.carrier.heading * DISTANCE_TARGET
 		position_smoothing_speed = SMOOTHING_BALL_CARRIED
