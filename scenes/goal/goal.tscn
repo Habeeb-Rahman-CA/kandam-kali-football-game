@@ -47,3 +47,15 @@ collision_mask = 0
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="TopFrame" unique_id=543360583]
 shape = SubResource("RectangleShape2D_ruxej")
+
+[node name="Targets" type="Node2D" parent="." unique_id=577511852]
+unique_name_in_owner = true
+
+[node name="TopTarget" type="Node2D" parent="Targets" unique_id=1017899976]
+position = Vector2(22, -56)
+
+[node name="MiddleTarget" type="Node2D" parent="Targets" unique_id=1256219717]
+position = Vector2(22, -35)
+
+[node name="BottonTarget" type="Node2D" parent="Targets" unique_id=1392833417]
+position = Vector2(22, -10)
