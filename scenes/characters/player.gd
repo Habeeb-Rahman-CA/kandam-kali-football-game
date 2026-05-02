@@ -8,6 +8,7 @@ const CONTROL_SCHEME_MAP : Dictionary = {
 	ControlScheme.P2: preload("res://assets/art/props/2p.png"),
 }
 
+const CLUB := ["DEFAULT", "REAL MADRID", "BARCELONA", "PSG", "BAYERN MUNICH", "MAN CITY", "MAN UNITED", "LIVERPOOL", "AC MILAN", "INTER MILAN", "EDATHODIKA FC"]
 const GRAVITY := 8.0
 
 enum ControlScheme {CPU, P1, P2}
@@ -33,6 +34,7 @@ var fullname := ""
 var role := Player.Role.MIDFIELD
 var skin_color := Player.SkinColor.MEDIUM
 var heading := Vector2.RIGHT
+var club := ""
 var height := 0.0
 var height_velocity := 0.0
 var state_factory := PlayerStateFactory.new()
@@ -40,6 +42,7 @@ var state_factory := PlayerStateFactory.new()
 func _ready() -> void:
 	set_control_texture()
 	switch_state(State.MOVING)
+	set_shader_properties()
 
 func _process(delta : float) -> void:
 	flip_sprites()
@@ -47,7 +50,13 @@ func _process(delta : float) -> void:
 	process_gravity(delta)
 	move_and_slide()
 
-func initialize(context_position: Vector2, context_ball: Ball, context_own_goal: Goal, context_target_goal: Goal, context_player_data: PlayerResource) -> void:
+func set_shader_properties() -> void:
+	player_sprite.material.set_shader_parameter("skin_color", skin_color)
+	var club_color := CLUB.find(club)
+	club_color = clampi(club_color, 0, CLUB.size() - 1)
+	player_sprite.material.set_shader_parameter("team_color", club_color )
+
+func initialize(context_position: Vector2, context_ball: Ball, context_own_goal: Goal, context_target_goal: Goal, context_player_data: PlayerResource, context_club: String) -> void:
 	position = context_position
 	ball = context_ball
 	own_goal = context_own_goal
@@ -58,6 +67,7 @@ func initialize(context_position: Vector2, context_ball: Ball, context_own_goal:
 	skin_color = context_player_data.skin_color
 	fullname = context_player_data.full_name
 	heading = Vector2.LEFT if target_goal.position.x < position.x else Vector2.RIGHT
+	club = context_club
 
 func switch_state(state: State, state_data: PlayerStateData = PlayerStateData.new()) -> void:
 	if current_state != null:
