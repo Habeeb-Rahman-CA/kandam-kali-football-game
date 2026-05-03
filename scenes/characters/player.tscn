@@ -311,6 +311,10 @@ height = 20.0
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_6eyoc"]
 size = Vector2(7, 7)
 
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_6eyoc"]
+radius = 40.0
+height = 120.0
+
 [node name="Player" type="CharacterBody2D" unique_id=208038396]
 collision_layer = 2
 script = ExtResource("1_yewv4")
@@ -375,7 +379,17 @@ shape = SubResource("CapsuleShape2D_dyp2m")
 unique_name_in_owner = true
 collision_layer = 0
 collision_mask = 2
+monitoring = false
+monitorable = false
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="TackleDamageEmitterArea" unique_id=2000064037]
 position = Vector2(13, -3)
 shape = SubResource("RectangleShape2D_6eyoc")
+
+[node name="OpponentDetectionArea" type="Area2D" parent="." unique_id=1080553862]
+unique_name_in_owner = true
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="OpponentDetectionArea" unique_id=1700325649]
+position = Vector2(20, 0)
+rotation = 1.5707964
+shape = SubResource("CapsuleShape2D_6eyoc")
