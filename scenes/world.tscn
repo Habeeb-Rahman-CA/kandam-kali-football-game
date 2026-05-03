@@ -134,4 +134,4 @@ collision_mask = 0
 polygon = PackedVector2Array(14, -2, 23, -2, 8, 116, 0, 116)
 
 [node name="Ball" parent="ActionsContainer" unique_id=2015266569 instance=ExtResource("5_71j4m")]
-position = Vector2(425, 185)
+position = Vector2(425, 184)
