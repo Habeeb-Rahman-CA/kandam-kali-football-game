@@ -79,6 +79,40 @@ tracks/0/keys = {
 "values": [42]
 }
 
+[sub_resource type="Animation" id="Animation_k4v7y"]
+resource_name = "dive_down"
+length = 0.1
+step = 0.1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("PlayerSprite:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [72]
+}
+
+[sub_resource type="Animation" id="Animation_xrqxk"]
+resource_name = "dive_up"
+length = 0.1
+step = 0.1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("PlayerSprite:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [66]
+}
+
 [sub_resource type="Animation" id="Animation_qgnko"]
 resource_name = "header"
 length = 0.2
@@ -288,6 +322,8 @@ _data = {
 &"RESET": SubResource("Animation_yewv4"),
 &"bicycle_kick": SubResource("Animation_eojnx"),
 &"chest_control": SubResource("Animation_2l4js"),
+&"dive_down": SubResource("Animation_k4v7y"),
+&"dive_up": SubResource("Animation_xrqxk"),
 &"header": SubResource("Animation_qgnko"),
 &"hurt": SubResource("Animation_xhtjm"),
 &"idle": SubResource("Animation_76oj4"),
@@ -315,8 +351,16 @@ size = Vector2(7, 7)
 radius = 40.0
 height = 120.0
 
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_eojnx"]
+size = Vector2(7, 7)
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_eojnx"]
+radius = 3.0
+height = 18.0
+
 [node name="Player" type="CharacterBody2D" unique_id=208038396]
 collision_layer = 2
+collision_mask = 9
 script = ExtResource("1_yewv4")
 power = 150.0
 speed = 80.0
@@ -383,13 +427,36 @@ monitoring = false
 monitorable = false
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="TackleDamageEmitterArea" unique_id=2000064037]
+visible = false
 position = Vector2(13, -3)
 shape = SubResource("RectangleShape2D_6eyoc")
 
 [node name="OpponentDetectionArea" type="Area2D" parent="." unique_id=1080553862]
 unique_name_in_owner = true
+monitorable = false
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="OpponentDetectionArea" unique_id=1700325649]
+visible = false
 position = Vector2(20, 0)
 rotation = 1.5707964
 shape = SubResource("CapsuleShape2D_6eyoc")
+
+[node name="PermenantDamageEmitterArea" type="Area2D" parent="." unique_id=1334920404]
+unique_name_in_owner = true
+collision_layer = 0
+collision_mask = 2
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="PermenantDamageEmitterArea" unique_id=1202247115]
+visible = false
+position = Vector2(0, -6)
+shape = SubResource("RectangleShape2D_eojnx")
+
+[node name="GoalieHands" type="AnimatableBody2D" parent="." unique_id=80986359]
+collision_layer = 32
+collision_mask = 0
+sync_to_physics = false
+
+[node name="GoalieHandsCollider" type="CollisionShape2D" parent="GoalieHands" unique_id=1722010188]
+unique_name_in_owner = true
+position = Vector2(0, -14)
+shape = SubResource("CapsuleShape2D_eojnx")

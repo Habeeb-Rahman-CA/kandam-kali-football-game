@@ -10,6 +10,12 @@ size = Vector2(26, 2)
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_ruxej"]
 size = Vector2(26, 2)
 
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_0jila"]
+size = Vector2(6, 60)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_8q8dj"]
+size = Vector2(6, 60)
+
 [node name="Goal" type="Node2D" unique_id=29679047]
 y_sort_enabled = true
 script = ExtResource("1_0ivff")
@@ -59,3 +65,20 @@ position = Vector2(22, -35)
 
 [node name="BottonTarget" type="Node2D" parent="Targets" unique_id=1392833417]
 position = Vector2(22, -10)
+
+[node name="InvisibleWalls" type="StaticBody2D" parent="." unique_id=126493652]
+collision_layer = 8
+collision_mask = 0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="InvisibleWalls" unique_id=42643990]
+position = Vector2(20, -35)
+shape = SubResource("RectangleShape2D_0jila")
+
+[node name="ScoringArea" type="Area2D" parent="." unique_id=720700222]
+unique_name_in_owner = true
+collision_layer = 16
+collision_mask = 4
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="ScoringArea" unique_id=1950664299]
+position = Vector2(0, -35)
+shape = SubResource("RectangleShape2D_8q8dj")
