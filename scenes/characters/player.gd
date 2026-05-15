@@ -144,6 +144,10 @@ func has_ball() -> bool:
 func set_control_texture() -> void:
 	control_sprite.texture = CONTROL_SCHEME_MAP[control_scheme]
 
+func get_pass_request(player: Player) -> void:
+	if ball.carrier == self and current_state != null and current_state.can_pass():
+		switch_state(Player.State.PASSING, PlayerStateData.build().set_pass_target(player))
+
 func can_carry_ball() -> bool:
 	return current_state != null and current_state.can_carry_ball()
 
