@@ -5,11 +5,20 @@ extends Node2D
 @onready var targets := %Targets
 @onready var scoring_area := %ScoringArea
 
+var club := ""
+
 func _ready() -> void:
 	back_net_area.body_entered.connect(on_ball_enter_back_net.bind())
-	
+	scoring_area.body_entered.connect(on_ball_enter_scoring_area.bind())
+
+func initializer(context_club: String) -> void:
+	club = context_club
+
 func on_ball_enter_back_net(ball : Ball) -> void:
 	ball.stop()
+
+func on_ball_enter_scoring_area(_ball: Ball) -> void:
+	GameEvents.team_scored.emit(club)
 
 func get_random_target_position() -> Vector2:
 	return targets.get_child(randi_range(0, targets.get_child_count() - 1)).global_position

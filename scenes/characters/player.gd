@@ -17,7 +17,7 @@ const WALK_ANIM_THRESHOLD := 0.6
 enum ControlScheme {CPU, P1, P2}
 enum Role {GOALIE, DEFENCE, MIDFIELD, OFFENCE}
 enum SkinColor {LIGHT, MEDIUM, DARK}
-enum State {MOVING, TACKLING, RECOVERING, PREPPING_SHOT, SHOOTING, PASSING, HEADER, VOLLEY_KICK, BICYCLE_KICK, CHEST_CONTROL, HURT, DIVING}
+enum State {MOVING, TACKLING, RECOVERING, PREPPING_SHOT, SHOOTING, PASSING, HEADER, VOLLEY_KICK, BICYCLE_KICK, CHEST_CONTROL, HURT, DIVING, CELEBRATING, MOURNING}
 
 @export var ball : Ball
 @export var control_scheme : ControlScheme
@@ -60,6 +60,7 @@ func _ready() -> void:
 	tackle_damage_emitter_area.body_entered.connect(on_tackle_player.bind())
 	permenant_damage_emitter_area.body_entered.connect(on_tackle_player.bind())
 	spawn_position = position
+	GameEvents.team_scored.connect(on_team_scored.bind())
 
 func _process(delta : float) -> void:
 	flip_sprites()
@@ -164,6 +165,12 @@ func is_facing_target_goal() -> bool:
 func on_animation_complete() -> void:
 	if current_state != null:
 		current_state.on_animation_complete() 
+
+func on_team_scored(team_scored_on: String) -> void:
+	if club == team_scored_on:
+		switch_state(Player.State.MOURNING)
+	else:
+		switch_state(Player.State.CELEBRATING)
 
 func control_ball() -> void:
 	if ball.height > BALL_CONTROL_HEIGHT_MAX:
