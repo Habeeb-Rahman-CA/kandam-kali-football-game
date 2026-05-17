@@ -49,8 +49,6 @@ script = ExtResource("5_e3hyu")
 ball = NodePath("Ball")
 goal_home = NodePath("PitchObject/GoalHome")
 goal_away = NodePath("PitchObject/GoalAway")
-team_home = "REAL MADRID"
-team_away = "BARCELONA"
 
 [node name="Spawns" type="Node2D" parent="ActionsContainer" unique_id=1287447162]
 unique_name_in_owner = true
@@ -73,6 +71,16 @@ position = Vector2(-25, -80)
 
 [node name="OffencePosition2" type="Node2D" parent="ActionsContainer/Spawns" unique_id=2027919845]
 position = Vector2(-25, 80)
+
+[node name="KickOffs" type="Node2D" parent="ActionsContainer" unique_id=1087872170]
+unique_name_in_owner = true
+position = Vector2(425, 180)
+
+[node name="KickOffPosition" type="Node2D" parent="ActionsContainer/KickOffs" unique_id=654896986]
+position = Vector2(-10, 0)
+
+[node name="KickOffPosition2" type="Node2D" parent="ActionsContainer/KickOffs" unique_id=308871664]
+position = Vector2(-5, 30)
 
 [node name="PitchObject" type="Node2D" parent="ActionsContainer" unique_id=813644968]
 y_sort_enabled = true

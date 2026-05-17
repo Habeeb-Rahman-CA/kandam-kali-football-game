@@ -17,7 +17,7 @@ const WALK_ANIM_THRESHOLD := 0.6
 enum ControlScheme {CPU, P1, P2}
 enum Role {GOALIE, DEFENCE, MIDFIELD, OFFENCE}
 enum SkinColor {LIGHT, MEDIUM, DARK}
-enum State {MOVING, TACKLING, RECOVERING, PREPPING_SHOT, SHOOTING, PASSING, HEADER, VOLLEY_KICK, BICYCLE_KICK, CHEST_CONTROL, HURT, DIVING, CELEBRATING, MOURNING}
+enum State {MOVING, TACKLING, RECOVERING, PREPPING_SHOT, SHOOTING, PASSING, HEADER, VOLLEY_KICK, BICYCLE_KICK, CHEST_CONTROL, HURT, DIVING, CELEBRATING, MOURNING, RESETING}
 
 @export var ball : Ball
 @export var control_scheme : ControlScheme
@@ -49,6 +49,7 @@ var height := 0.0
 var height_velocity := 0.0
 var state_factory := PlayerStateFactory.new()
 var weight_on_duty_steering := 0.0
+var kickoff_position := Vector2.ZERO
 
 func _ready() -> void:
 	set_control_texture()
@@ -74,7 +75,7 @@ func set_shader_properties() -> void:
 	club_color = clampi(club_color, 0, CLUB.size() - 1)
 	player_sprite.material.set_shader_parameter("team_color", club_color )
 
-func initialize(context_position: Vector2, context_ball: Ball, context_own_goal: Goal, context_target_goal: Goal, context_player_data: PlayerResource, context_club: String) -> void:
+func initialize(context_position: Vector2, context_kickoff_position: Vector2, context_ball: Ball, context_own_goal: Goal, context_target_goal: Goal, context_player_data: PlayerResource, context_club: String) -> void:
 	position = context_position
 	ball = context_ball
 	own_goal = context_own_goal
@@ -86,6 +87,8 @@ func initialize(context_position: Vector2, context_ball: Ball, context_own_goal:
 	fullname = context_player_data.full_name
 	heading = Vector2.LEFT if target_goal.position.x < position.x else Vector2.RIGHT
 	club = context_club
+	kickoff_position = context_kickoff_position
+	add_to_group("players")
 
 func setup_ai_behavior() -> void:
 	current_ai_behavior = ai_behavior_factory.get_ai_behavior(role)
@@ -165,6 +168,13 @@ func is_facing_target_goal() -> bool:
 func on_animation_complete() -> void:
 	if current_state != null:
 		current_state.on_animation_complete() 
+
+func is_ready_for_kickoff() -> bool:
+	return current_state != null and current_state.is_ready_for_kickoff()
+
+func face_towards_target_goal() -> void:
+	if not is_facing_target_goal():
+		heading = heading * -1
 
 func on_team_scored(team_scored_on: String) -> void:
 	if club == team_scored_on:
