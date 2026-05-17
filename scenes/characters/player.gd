@@ -54,7 +54,6 @@ var kickoff_position := Vector2.ZERO
 func _ready() -> void:
 	set_control_texture()
 	setup_ai_behavior()
-	switch_state(State.MOVING)
 	set_shader_properties()
 	permenant_damage_emitter_area.monitoring = role == Role.GOALIE
 	goalie_hands_collider.disabled = role != Role.GOALIE
@@ -62,6 +61,8 @@ func _ready() -> void:
 	permenant_damage_emitter_area.body_entered.connect(on_tackle_player.bind())
 	spawn_position = position
 	GameEvents.team_scored.connect(on_team_scored.bind())
+	var initial_position := kickoff_position if club == GameManager.clubs[0] else spawn_position
+	switch_state(State.RESETING, PlayerStateData.build().set_reset_position(initial_position))
 
 func _process(delta : float) -> void:
 	flip_sprites()
@@ -168,6 +169,10 @@ func is_facing_target_goal() -> bool:
 func on_animation_complete() -> void:
 	if current_state != null:
 		current_state.on_animation_complete() 
+
+func set_control_scheme(scheme: ControlScheme) -> void:
+	control_scheme = scheme
+	set_control_texture()
 
 func is_ready_for_kickoff() -> bool:
 	return current_state != null and current_state.is_ready_for_kickoff()
